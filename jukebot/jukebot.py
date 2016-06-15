@@ -28,9 +28,9 @@ def receive_message(request):
 def verify_token(request):
     # Vertify user
     if request.args.get("hub.verify_token") == token:
-            return request.args.get("hub.challenge")
+        return request.args.get("hub.challenge")
 
-    # Failure 400
+    return 'Failure'
 
 
 
