@@ -8,15 +8,13 @@ bot = Bot(TOKEN)
 
 @app.route('/', methods=['GET', 'POST'])
 def listen():
-	'''
-	NOTE request.args returns a multilist AKA a dict {k: []} where 
-	values are lists
-	'''
-	return (
-		verify_token(request) if request.method=='GET'
-							  else receive_message(request))
-
-
+    '''
+    NOTE request.args returns a multilist AKA a dict {k: []} where 
+    values are lists
+    '''
+    return (
+        verify_token(request) if request.method=='GET'
+                              else receive_message(request))
 
 def receive_message(request):
     # SHOULD BE
@@ -28,11 +26,11 @@ def receive_message(request):
     return msg
 
 def verify_token(request):
-	# Vertify user
-	if request.args.get("hub.verify_token") == token:
-			return request.args.get("hub.challenge")
+    # Vertify user
+    if request.args.get("hub.verify_token") == token:
+            return request.args.get("hub.challenge")
 
-	# Failure 400
+    # Failure 400
 
 
 
