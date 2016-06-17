@@ -12,20 +12,14 @@ def listen():
     NOTE request.args returns a multilist AKA a dict {k: []} where 
     values are lists
     """
-    return (
-        verify_token(request) if request.method=='GET'
-                              else receive_message(request))
 
-def receive_message(request):
-    msg = request.json['entry'][0]['messaging'][0]['message']['text']
-    return msg
+    # Handle initial facebook authentication
+    if request.args.get('hub.verify_token') == token:
+        return request.args.get('hub.challenge')
 
-def verify_token(request):
-    """ Vertify user """
-    if request.args.get("hub.verify_token") == token:
-        return request.args.get("hub.challenge")
+    message = bot.messages_for_request(request)
 
-    return 'Failure'
+    return "hello world"
 
 if __name__ == "__main__":
-    app.run()
+    app.run(port=8000)
